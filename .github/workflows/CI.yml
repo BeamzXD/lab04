@@ -11,20 +11,38 @@ jobs:
  
   runs-on: ubuntu-latest
   
-  steps:
-  - uses: actions/checkout@v3
-  
-  - name: Configure Solver
-    run: cmake ${{github.workspace}}/solver_application/ -B ${{github.workspace}}/solver_application/build
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
     
-  - name: Build Solver
-    run: cmake --build ${{github.workspace}}/solver_application/build
-    
-  - name: Configure HelloWorld
-    run: cmake ${{github.workspace}}/hello_world_application/ -B ${{github.workspace}}/hello_world_application/build
-  
-  - name: Build HelloWorld
-    run: cmake --build ${{github.workspace}}/hello_world_application/build
+    - name: Build a *formatter* library
+      run: |
+        cmake -H. -B_build
+        cmake --build _build
+      shell: bash
+      working-directory: lab04/formatter_lib
+      
+    - name: Build a *formatter_ex* library
+      run: |
+        cmake -H. -B_build
+        cmake --build _build
+      shell: bash
+      working-directory: lab04/formatter_ex_lib
+      
+    - name: Build a *hello_world* application
+      run: |
+        cmake -H. -B_build
+        cmake --build _build
+      shell: bash
+      working-directory: lab04/hello_world_application
+      
+      S
+    - name: Build a *solver* application
+      run: |
+        cmake -H. -B_build
+        cmake --build _build
+      shell: bash
+      working-directory: lab04/solver_application
     
  build_Windows:
  
